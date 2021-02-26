@@ -1,0 +1,37 @@
+При рекурсии используется стек вызовов
+Например следующий код
+def fact(x):
+    if x == 1:
+        return 1
+    else:
+        return x * fact(x-1)
+
+fact(3)
+
+Будет работать так:
+1) х = 3, условие не выполняется, переходим в функцию, с х = 2
+2) х = 2, условие не выполняется, переходим в функцию, с х = 1
+3) х = 1, условие выполняется, возвращаем 1
+4) возвращаемся в функцию с х = 2, возвращаем 2 * 1
+5) возвращаемся в функцию с х = 3, возвращаем 3 * 2
+
+Быстрая сортировка
+
+import random
+
+
+def fast_sort(arr):
+    arr = list(arr)  # Не портим исходный массив
+    if len(arr) < 2:
+        return arr
+    else:
+        key_element_index = random.randrange(0, len(arr))  # Опроный элемент выбираем случайно, так эффективнее
+        key_element = arr.pop(key_element_index)
+        less = [i for i in arr if i <= key_element]
+        high = [i for i in arr if i > key_element]
+        return fast_sort(less) + [key_element] + fast_sort(high)  # Рекурсивно продолжаем сортировку
+
+
+my_arr = [3, 1, 1, 1, 1, 2, 2, 7, 19, 4, 12, 5]
+print(fast_sort(my_arr))
+
